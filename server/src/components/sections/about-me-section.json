@@ -1,0 +1,21 @@
+{
+  "collectionName": "components_sections_about_me_sections",
+  "info": {
+    "displayName": "About Me Section",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "Title": {
+      "type": "string"
+    },
+    "SubTitle": {
+      "type": "text"
+    },
+    "TextBlocks": {
+      "type": "component",
+      "repeatable": true,
+      "component": "global.title-paragraph-block"
+    }
+  }
+}

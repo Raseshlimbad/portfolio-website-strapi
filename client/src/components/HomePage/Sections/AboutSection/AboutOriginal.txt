@@ -1,0 +1,106 @@
+// import React from 'react';
+// import { Code, Server, Globe, Database } from 'lucide-react';
+// import AnimatedText from '@/components/global/AnimatedText';
+// import SkillCard from './SkillCard';
+
+// const About = () => {
+//   const skills = [
+//     {
+//       icon: <Code className="h-6 w-6" />,
+//       title: 'Frontend',
+//       description: 'Creating responsive and accessible interfaces with React, Next.js, and TypeScript.',
+//       technologies: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS'],
+//     },
+//     {
+//       icon: <Server className="h-6 w-6" />,
+//       title: 'Backend',
+//       description: 'Building scalable APIs and server-side applications with Node.js and Express.',
+//       technologies: ['Node.js', 'Express', 'NestJS', 'GraphQL'],
+//     },
+//     {
+//       icon: <Database className="h-6 w-6" />,
+//       title: 'Database',
+//       description: 'Managing and optimizing data with relational and NoSQL databases.',
+//       technologies: ['PostgreSQL', 'MongoDB', 'Redis', 'Firebase'],
+//     },
+//     {
+//       icon: <Globe className="h-6 w-6" />,
+//       title: 'DevOps',
+//       description: 'Deploying and maintaining applications with modern cloud services.',
+//       technologies: ['Docker', 'AWS', 'CI/CD', 'Kubernetes'],
+//     },
+//   ];
+
+//   return (
+//     <section
+//       id="about"
+//       className="pt-20 pb-32 px-4 relative"
+//     >
+//       <div className="container mx-auto max-w-5xl">
+//         <div className="text-center mb-16">
+//           <AnimatedText
+//             text={<h2 className="text-3xl md:text-4xl font-bold tracking-tight text-indigo-600 dark:text-indigo-400">About Me</h2>}
+//             animation="slide-up"
+//           />
+//           <AnimatedText
+//             text={
+//               <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
+//                 I&apos;m a passionate full stack developer with experience in building beautiful, functional, and user-friendly web applications.
+//               </p>
+//             }
+//             animation="fade-in"
+//             delay={200}
+//           />
+//         </div>
+
+//         <div className="grid md:grid-cols-2 gap-8 mb-16">
+//           <AnimatedText
+//             text={
+//               <div className="space-y-4 p-6 rounded-xl bg-white/70 dark:bg-slate-900/70 backdrop-blur-sm border border-teal-100 dark:border-indigo-900 shadow-md">
+//                 <h3 className="text-2xl font-bold text-teal-600 dark:text-teal-400">My Journey</h3>
+//                 <p className="text-muted-foreground">
+//                   With over 5 years of experience in web development, I&apos;ve worked on various projects ranging from small business websites to large-scale enterprise applications.
+//                 </p>
+//                 <p className="text-muted-foreground">
+//                   My approach combines technical expertise with a keen eye for design, ensuring that the applications I build are not only functional but also aesthetically pleasing and intuitive to use.
+//                 </p>
+//               </div>
+//             }
+//             animation="fade-in"
+//           />
+
+//           <AnimatedText
+//             text={
+//               <div className="space-y-4 p-6 rounded-xl bg-white/70 dark:bg-slate-900/70 backdrop-blur-sm border border-indigo-100 dark:border-indigo-900 shadow-md">
+//                 <h3 className="text-2xl font-bold text-indigo-600 dark:text-indigo-400">My Philosophy</h3>
+//                 <p className="text-muted-foreground">
+//                   I believe in writing clean, maintainable code that stands the test of time. My development philosophy centers around user experience, performance, and accessibility.
+//                 </p>
+//                 <p className="text-muted-foreground">
+//                   I&apos;m constantly learning and adapting to new technologies and methodologies to deliver the best possible solutions for my clients and users.
+//                 </p>
+//               </div>
+//             }
+//             animation="fade-in"
+//             delay={200}
+//           />
+//         </div>
+
+//         <h3 className="text-2xl font-bold text-center mb-8 text-indigo-600 dark:text-indigo-400">My Skills</h3>
+
+//         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 stagger-animation">
+//         {skills.map((skill, index) => (
+//             <AnimatedText
+//               key={skill.title}
+//               text={<SkillCard {...skill} />}
+//               animation="scale-in"
+//               delay={index * 100}
+//             />
+//           ))}
+//         </div>
+//       </div>
+//     </section>
+//   );
+// };
+
+// export default About;

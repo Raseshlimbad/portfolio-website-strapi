@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_sections_my_skills_sections",
+  "info": {
+    "displayName": "My Skills Section",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "SkillCategory": {
+      "type": "string"
+    },
+    "SkillDescription": {
+      "type": "component",
+      "repeatable": true,
+      "component": "global.paragraph"
+    },
+    "SkillNames": {
+      "type": "component",
+      "repeatable": true,
+      "component": "skills.skills"
+    }
+  }
+}

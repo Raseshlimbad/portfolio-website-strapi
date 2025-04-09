@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_global_title_paragraph_blocks",
+  "info": {
+    "displayName": "Title Paragraph Block",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "Title": {
+      "type": "string"
+    },
+    "Paragraph": {
+      "type": "blocks"
+    }
+  }
+}

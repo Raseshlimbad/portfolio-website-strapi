@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_sections_hero_sections",
+  "info": {
+    "displayName": "HeroSection"
+  },
+  "options": {},
+  "attributes": {
+    "Title": {
+      "type": "string"
+    },
+    "SubTitle": {
+      "type": "text"
+    },
+    "OccupationLabel": {
+      "type": "string"
+    },
+    "CTAs": {
+      "type": "component",
+      "repeatable": true,
+      "component": "global.links"
+    }
+  }
+}

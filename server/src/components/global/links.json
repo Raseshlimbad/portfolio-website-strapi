@@ -1,0 +1,27 @@
+{
+  "collectionName": "components_global_links",
+  "info": {
+    "displayName": "Links",
+    "icon": "link",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "Name": {
+      "type": "string"
+    },
+    "url": {
+      "type": "string"
+    },
+    "Type": {
+      "type": "enumeration",
+      "enum": [
+        "Reference",
+        "External",
+        "Anchor"
+      ],
+      "default": "Reference",
+      "required": true
+    }
+  }
+}

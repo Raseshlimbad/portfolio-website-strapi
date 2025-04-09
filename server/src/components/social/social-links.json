@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_social_social_links",
+  "info": {
+    "displayName": "Social Links",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "PlatformName": {
+      "type": "string"
+    },
+    "URL": {
+      "type": "component",
+      "repeatable": false,
+      "component": "global.links"
+    },
+    "Icon": {
+      "type": "component",
+      "repeatable": false,
+      "component": "global.image"
+    }
+  }
+}

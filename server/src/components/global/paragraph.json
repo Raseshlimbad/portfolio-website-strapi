@@ -1,0 +1,12 @@
+{
+  "collectionName": "components_global_paragraphs",
+  "info": {
+    "displayName": "Paragraph"
+  },
+  "options": {},
+  "attributes": {
+    "Paragraph": {
+      "type": "blocks"
+    }
+  }
+}

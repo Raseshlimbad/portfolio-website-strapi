@@ -1,0 +1,32 @@
+{
+  "collectionName": "components_global_images",
+  "info": {
+    "displayName": "Image",
+    "icon": "picture"
+  },
+  "options": {},
+  "attributes": {
+    "altText": {
+      "type": "string"
+    },
+    "Image": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false
+    },
+    "url": {
+      "type": "component",
+      "repeatable": false,
+      "component": "global.links"
+    },
+    "isURL": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}

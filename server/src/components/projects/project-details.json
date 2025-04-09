@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_projects_project_details",
+  "info": {
+    "displayName": "Project Details"
+  },
+  "options": {},
+  "attributes": {
+    "TechnologyName": {
+      "type": "string"
+    },
+    "ProjectDescription": {
+      "type": "blocks"
+    }
+  }
+}

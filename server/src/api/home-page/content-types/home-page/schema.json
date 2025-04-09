@@ -1,0 +1,25 @@
+{
+  "kind": "singleType",
+  "collectionName": "home_pages",
+  "info": {
+    "singularName": "home-page",
+    "pluralName": "home-pages",
+    "displayName": "Home Page",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "Sections": {
+      "type": "dynamiczone",
+      "components": [
+        "sections.header-section",
+        "sections.hero-section",
+        "sections.about-me-section",
+        "sections.my-skills-section",
+        "sections.footer-section"
+      ]
+    }
+  }
+}

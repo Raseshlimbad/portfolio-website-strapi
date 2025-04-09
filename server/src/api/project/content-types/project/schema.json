@@ -1,0 +1,34 @@
+{
+  "kind": "collectionType",
+  "collectionName": "projects",
+  "info": {
+    "singularName": "project",
+    "pluralName": "projects",
+    "displayName": "Projects",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "Title": {
+      "type": "string"
+    },
+    "Description": {
+      "type": "blocks"
+    },
+    "TechnologiesUsed": {
+      "type": "text"
+    },
+    "ProjectLink": {
+      "type": "component",
+      "repeatable": false,
+      "component": "global.links"
+    },
+    "Image": {
+      "type": "component",
+      "repeatable": false,
+      "component": "global.image"
+    }
+  }
+}
