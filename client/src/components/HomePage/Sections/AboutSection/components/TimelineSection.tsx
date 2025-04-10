@@ -1,21 +1,13 @@
-'use client'
+"use client";
 
-import React, { useState, useEffect, useRef } from "react";
-import { motion } from "framer-motion";
-import { experiences } from "@/data/AboutMeData";
-import { renderTimelineIcon } from "@/data/Icons";
-import { MappedTimelineData } from "@/types/HomePage/TimelineTypes";
-import { useQuery } from "@apollo/client";
+import StrapiImageRenderer from "@/components/global/StrapiImageRenderer";
 import TimelineLoadingSkeleton from "@/components/LoadingSkeletons/TimelineLoadingSkeleton";
 import { GET_TIMELINE_DATA } from "@/graphql/homePage/timeline.query";
 import { mapTimelineData } from "@/lib/helpers/mapDataHelper";
-
-interface Experience {
-  year: string;
-  title: string;
-  description: string;
-  icon: string;
-}
+import { MappedTimelineData } from "@/types/HomePage/TimelineTypes";
+import { useQuery } from "@apollo/client";
+import { motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 
 const TimelineSection = () => {
   const [activeIndex, setActiveIndex] = useState<number>(3);
@@ -26,27 +18,21 @@ const TimelineSection = () => {
 
   const { loading, error, data } = useQuery(GET_TIMELINE_DATA);
 
-  console.log("Timeline Data row: ", data?.homePage?.Sections?.find(
-    (section: { __typename: string }) => section.__typename === "ComponentSectionsAboutMeSection"
-  )?.Timeline_Nodes)
+  // Formatted Data
+  useEffect(() => {
+    if (data?.homePage?.Sections) {
+      const headerSection = data.homePage.Sections.find(
+        (section: { __typename: string }) =>
+          section.__typename === "ComponentSectionsAboutMeSection"
+      );
 
-      // Formatted Data
-      useEffect(() => {
-        if (data?.homePage?.Sections) {
-          const headerSection = data.homePage.Sections.find(
-            (section: { __typename: string }) => section.__typename === "ComponentSectionsAboutMeSection"
-          );
-    
-          if (headerSection) {
-            setTimelineData(mapTimelineData(headerSection));
-          }
-        }
-      }, [data]);
+      if (headerSection) {
+        setTimelineData(mapTimelineData(headerSection));
+      }
+    }
+  }, [data]);
 
-  console.log("Timeline Data: ", timelineData)
-      
-
-
+  console.log("Timeline Data: ", timelineData);
 
   const debounce = <T extends (...args: unknown[]) => void>(
     func: T,
@@ -139,7 +125,7 @@ const TimelineSection = () => {
 
       {/* Timeline events */}
       <div className="relative">
-        {experiences.map((exp: Experience, index: number) => (
+        {timelineData?.timelineItems.map((exp, index) => (
           <motion.div
             key={exp.year}
             className="mb-8 md:mb-24 relative"
@@ -162,12 +148,18 @@ const TimelineSection = () => {
                 <div className="flex items-center space-x-3 mb-3">
                   <div
                     className={`flex items-center justify-center w-10 h-10 rounded-full transition-all duration-300 ${
-                      activeIndex === index
-                        ? "bg-indigo-600 text-white"
-                        : "bg-indigo-400 text-white"
+                      activeIndex === index ? "bg-indigo-600" : "bg-indigo-400"
                     }`}
                   >
-                    {renderTimelineIcon(exp.icon)}
+                    <StrapiImageRenderer
+                      imageUrl={exp.icon.svgUrl}
+                      altText={exp.icon.svgAltText}
+                      height={20}
+                      width={20}
+                      isSvg={true}
+                      // className="[&>img]:invert [&>img]:brightness-0"
+                      className="text-white"
+                    />
                   </div>
                   <h3
                     className={`text-xl font-bold ${
@@ -219,11 +211,19 @@ const TimelineSection = () => {
                 <div
                   className={`flex items-center justify-center w-16 h-16 rounded-full transition-all duration-300 ${
                     activeIndex === index
-                      ? "bg-indigo-600 text-white ring-20 ring-indigo-200 dark:ring-indigo-900"
-                      : "bg-indigo-400 text-white"
+                      ? "bg-indigo-600 ring-20 ring-indigo-200 dark:ring-indigo-900"
+                      : "bg-indigo-400"
                   }`}
                 >
-                  {renderTimelineIcon(exp.icon)}
+                  <StrapiImageRenderer
+                    imageUrl={exp.icon.svgUrl}
+                    altText={exp.icon.svgAltText}
+                    height={30}
+                    width={30}
+                    isSvg={true}
+                    // className="[&>img]:invert [&>img]:brightness-0"
+                    className="text-white"
+                  />
                 </div>
               </motion.div>
 

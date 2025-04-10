@@ -29,6 +29,21 @@
       "type": "component",
       "repeatable": false,
       "component": "global.image"
+    },
+    "ProjectCategoryIcon": {
+      "type": "component",
+      "repeatable": false,
+      "component": "global.icon"
+    },
+    "Links": {
+      "type": "component",
+      "repeatable": true,
+      "component": "global.links"
+    },
+    "TechnologyStack": {
+      "type": "component",
+      "repeatable": true,
+      "component": "global.text-array"
     }
   }
 }

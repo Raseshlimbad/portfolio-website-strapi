@@ -86,6 +86,16 @@ export interface GlobalParagraph extends Struct.ComponentSchema {
   };
 }
 
+export interface GlobalTextArray extends Struct.ComponentSchema {
+  collectionName: 'components_global_text_arrays';
+  info: {
+    displayName: 'TextArray';
+  };
+  attributes: {
+    Text: Schema.Attribute.Text;
+  };
+}
+
 export interface GlobalTitleParagraphBlock extends Struct.ComponentSchema {
   collectionName: 'components_global_title_paragraph_blocks';
   info: {
@@ -277,6 +287,7 @@ declare module '@strapi/strapi' {
       'global.image': GlobalImage;
       'global.links': GlobalLinks;
       'global.paragraph': GlobalParagraph;
+      'global.text-array': GlobalTextArray;
       'global.title-paragraph-block': GlobalTitleParagraphBlock;
       'projects.project-details': ProjectsProjectDetails;
       'sections.about-me-section': SectionsAboutMeSection;

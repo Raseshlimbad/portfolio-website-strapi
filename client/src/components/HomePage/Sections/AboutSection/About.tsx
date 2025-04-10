@@ -1,7 +1,6 @@
 import React from "react";
 import MySkillsSection from "./components/MySkillsSection";
-import TimelineSection from "./components/TimelineSection"; // Import TimelineSection
-import { skillCategories } from "@/data/AboutMeData";
+import TimelineSection from "./components/TimelineSection";
 
 
 const AboutSection = () => {
@@ -11,7 +10,7 @@ const AboutSection = () => {
       <TimelineSection/>
 
       {/* Skills Section */}
-      <MySkillsSection skillCategories={skillCategories} />
+      <MySkillsSection />
     </section>
   );
 };

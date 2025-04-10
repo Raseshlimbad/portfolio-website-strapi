@@ -1,18 +1,41 @@
-import React from "react";
+import { GET_MY_SKILLS_SECTION_QUERY } from "@/graphql/homePage/MySkillsSection.query";
+import { mapMySkillsSectionData } from "@/lib/helpers/mapDataHelper";
+import { MappedMySkillsSection } from "@/types/HomePage/MySkillsSecctionTypes";
+import { useQuery } from "@apollo/client";
 import { motion } from "framer-motion";
+import React, { useEffect, useState } from "react";
 import SkillsDisplay from "./SkillDisplay";
+import MySkillsSectionSkeleton from "@/components/LoadingSkeletons/MySkillsSectionSkeleton";
+import ErrorDisplay from "@/components/global/ErrorDisplay";
 
-interface Skill {
-  title: string;
-  description: string;
-  skills: string[];
-}
+const MySkillsSection = () => {
 
-interface MySkillsSectionProps {
-  skillCategories: Skill[];
-}
+  const [mySkillsSectionData, setMySkillsSectionData] = useState<MappedMySkillsSection>();
 
-const MySkillsSection: React.FC<MySkillsSectionProps> = ({ skillCategories }) => {
+  const { loading, error, data } = useQuery(GET_MY_SKILLS_SECTION_QUERY);
+
+    // Filtering the MySkills Section correctly and mapping the data
+    useEffect(() => {
+      if (data?.homePage?.Sections) {
+        // Find the section
+        const heroSection = data.homePage.Sections.find(
+          (section: { __typename: string }) => section.__typename === "ComponentSectionsMySkillsSection"
+        );
+  
+        if (heroSection) {
+          const mappedData = mapMySkillsSectionData(heroSection);
+          setMySkillsSectionData(mappedData);
+        }
+      }
+    }, [data]);
+
+  console.log("My Skills Data:", mySkillsSectionData?.skillCategories);
+
+
+  if (loading) return <MySkillsSectionSkeleton />;
+  if (error) return <ErrorDisplay message={error.message} />;
+
+
   return (
     <motion.div
       className="container mx-auto max-w-5xl mt-24 pt-30"
@@ -27,7 +50,7 @@ const MySkillsSection: React.FC<MySkillsSectionProps> = ({ skillCategories }) =>
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.2 }}
       >
-        My Skills
+        {mySkillsSectionData?.sectionTitle}
       </motion.h3>
 
       {/* SkillsDisplay with a staggered fade-in animation for each skill */}
@@ -50,7 +73,8 @@ const MySkillsSection: React.FC<MySkillsSectionProps> = ({ skillCategories }) =>
           },
         }}
       >
-        <SkillsDisplay skills={skillCategories} />
+        {/* <SkillsDisplay skillCategories={mySkillsSectionData?.skillCategories} /> */}
+        <SkillsDisplay skillCategories={mySkillsSectionData?.skillCategories || []} />
       </motion.div>
     </motion.div>
   );

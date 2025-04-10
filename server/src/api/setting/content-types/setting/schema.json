@@ -1,0 +1,21 @@
+{
+  "kind": "singleType",
+  "collectionName": "settings",
+  "info": {
+    "singularName": "setting",
+    "pluralName": "settings",
+    "displayName": "Settings"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "Settings": {
+      "type": "dynamiczone",
+      "components": [
+        "sections.header-section",
+        "sections.footer-section"
+      ]
+    }
+  }
+}

@@ -455,16 +455,49 @@ export interface ApiProjectProject extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     Description: Schema.Attribute.Blocks;
     Image: Schema.Attribute.Component<'global.image', false>;
+    Links: Schema.Attribute.Component<'global.links', true>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::project.project'
     > &
       Schema.Attribute.Private;
+    ProjectCategoryIcon: Schema.Attribute.Component<'global.icon', false>;
     ProjectLink: Schema.Attribute.Component<'global.links', false>;
     publishedAt: Schema.Attribute.DateTime;
     TechnologiesUsed: Schema.Attribute.Text;
+    TechnologyStack: Schema.Attribute.Component<'global.text-array', true>;
     Title: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiSettingSetting extends Struct.SingleTypeSchema {
+  collectionName: 'settings';
+  info: {
+    displayName: 'Settings';
+    pluralName: 'settings';
+    singularName: 'setting';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::setting.setting'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    Settings: Schema.Attribute.DynamicZone<
+      ['sections.header-section', 'sections.footer-section']
+    >;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -983,6 +1016,7 @@ declare module '@strapi/strapi' {
       'api::blog.blog': ApiBlogBlog;
       'api::home-page.home-page': ApiHomePageHomePage;
       'api::project.project': ApiProjectProject;
+      'api::setting.setting': ApiSettingSetting;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;
