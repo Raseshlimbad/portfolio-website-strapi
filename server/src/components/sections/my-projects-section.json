@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_sections_my_projects_sections",
+  "info": {
+    "displayName": "My Projects Section",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "SectionTitle": {
+      "type": "string"
+    },
+    "SectionDescription": {
+      "type": "component",
+      "repeatable": false,
+      "component": "global.paragraph"
+    },
+    "CTA": {
+      "type": "component",
+      "repeatable": false,
+      "component": "global.links"
+    }
+  }
+}

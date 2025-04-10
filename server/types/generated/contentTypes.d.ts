@@ -426,6 +426,9 @@ export interface ApiHomePageHomePage extends Struct.SingleTypeSchema {
         'sections.hero-section',
         'sections.about-me-section',
         'sections.my-skills-section',
+        'sections.my-projects-section',
+        'sections.my-blog-posts-section',
+        'sections.contact-section',
         'sections.footer-section',
       ]
     >;

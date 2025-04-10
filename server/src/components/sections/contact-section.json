@@ -1,0 +1,25 @@
+{
+  "collectionName": "components_sections_contact_sections",
+  "info": {
+    "displayName": "Contact Section",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "Contact_Information_LeftSection": {
+      "type": "component",
+      "repeatable": false,
+      "component": "sub-sections.contact-information"
+    },
+    "Send_Message_MiddleSection": {
+      "type": "component",
+      "repeatable": false,
+      "component": "sub-sections.send-me-a-message"
+    },
+    "Contact_Image_RightSection_Image": {
+      "type": "component",
+      "repeatable": false,
+      "component": "global.image"
+    }
+  }
+}

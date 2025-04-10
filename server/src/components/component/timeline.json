@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_component_timelines",
+  "info": {
+    "displayName": "Timeline Nodes",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "TextBlock": {
+      "type": "component",
+      "repeatable": false,
+      "component": "global.title-paragraph-block"
+    },
+    "TimelineYear": {
+      "type": "integer"
+    },
+    "TimelineIcon": {
+      "type": "component",
+      "repeatable": false,
+      "component": "global.icon"
+    }
+  }
+}

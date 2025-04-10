@@ -1,9 +1,39 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { ArrowDown } from "lucide-react";
 import AnimatedText from "@/components/global/AnimatedText";
 import { AnimatedButton } from "@/components/ui/animated-button";
+import { GET_HERO_SECTION_QUERY } from "@/graphql/homePage/heroSection.query";
+import { useQuery } from "@apollo/client";
+import { mapHeroSectionData } from "@/lib/helpers/mapDataHelper";
+import { MappedHeroSectionData } from "@/types/HomePage/HeroSectionTypes";
+import HeroLoadingSkeleton from "@/components/LoadingSkeletons/HeroLoadingSkeleton";
+import { redirect } from "next/navigation";
 
 const Hero = () => {
+  const [heroSectionData, setHeroSectionData] = useState<MappedHeroSectionData>();
+
+  const { loading, error, data } = useQuery(GET_HERO_SECTION_QUERY);
+
+    // Filtering the Hero Section correctly and mapping the data
+    useEffect(() => {
+      if (data?.homePage?.Sections) {
+        // Find the section
+        const heroSection = data.homePage.Sections.find(
+          (section: { __typename: string }) => section.__typename === "ComponentSectionsHeroSection"
+        );
+  
+        if (heroSection) {
+          const mappedData = mapHeroSectionData(heroSection);
+          setHeroSectionData(mappedData);
+        }
+      }
+    }, [data]);
+
+  // console.log("Hero Section Data:", heroSectionData);
+
+
+  if (loading) return <HeroLoadingSkeleton />;
+  if (error) return <div>Error: {error.message}</div>;
   return (
     <section
       id="home"
@@ -35,22 +65,11 @@ const Hero = () => {
       </div>
 
       <div className="text-center max-w-3xl mx-auto stagger-animation">
-        {/* <div className="mb-6 overflow-hidden">
-          <AnimatedText
-            text={
-              <span className="inline-block text-sm font-medium px-4 py-1.5 rounded-full bg-secondary text-primary">
-                Full Stack Developer
-              </span>
-            }
-            animation="fade-in"
-          />
-        </div> */}
-
         <div className="mb-6 overflow-hidden">
           <AnimatedText
             text={
               <span className="inline-block text-md bg-white/60 font-bold px-4 py-1.5 rounded-full text-primary border-2 border-primary">
-                Full Stack Developer
+                {heroSectionData?.OccupationLabel}
               </span>
             }
             animation="fade-in"
@@ -61,7 +80,7 @@ const Hero = () => {
           <AnimatedText
             text={
               <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-primary bg-clip-text bg-gradient-to-r from-primary to-purple-600 dark:from-blue-400 dark:to-purple-400">
-                Crafting Digital Experiences
+                {heroSectionData?.Title}
               </h1>
             }
             animation="slide-up"
@@ -73,9 +92,7 @@ const Hero = () => {
           <AnimatedText
             text={
               <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-                I build modern web applications with cutting-edge technologies,
-                focusing on performance, accessibility and exceptional user
-                experience.
+                {heroSectionData?.SubTitle}
               </p>
             }
             animation="fade-in"
@@ -93,12 +110,14 @@ const Hero = () => {
                 size="lg"
                 className="px-8 py-6 text-base font-medium rounded-xl shadow-md"
                 onClick={() =>
+                  heroSectionData?.CTAs[0].Type === "Anchor"?
                   document
-                    .getElementById("projects")
+                    .getElementById(`${heroSectionData?.CTAs[0].url}`)
                     ?.scrollIntoView({ behavior: "smooth" })
+                    :redirect(`/${heroSectionData?.CTAs[0].url}`)
                 }
               >
-                View My Work
+                {heroSectionData?.CTAs[0].Name}
               </AnimatedButton>
             }
             animation="scale-in"
@@ -112,12 +131,14 @@ const Hero = () => {
                 size="lg"
                 className="px-8 py-6 text-base font-medium rounded-xl"
                 onClick={() =>
+                  heroSectionData?.CTAs[1].Type === "Anchor"?
                   document
-                    .getElementById("contact")
+                    .getElementById(`${heroSectionData?.CTAs[0].url}`)
                     ?.scrollIntoView({ behavior: "smooth" })
+                    :redirect(`/${heroSectionData?.CTAs[0].url}`)
                 }
               >
-                Contact Me
+                {heroSectionData?.CTAs[1].Name}
               </AnimatedButton>
             }
             animation="scale-in"

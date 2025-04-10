@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_sub_sections_send_me_a_messages",
+  "info": {
+    "displayName": "Send Me a Message",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "Title": {
+      "type": "string"
+    },
+    "ContactForm": {
+      "type": "component",
+      "repeatable": false,
+      "component": "global.form"
+    }
+  }
+}

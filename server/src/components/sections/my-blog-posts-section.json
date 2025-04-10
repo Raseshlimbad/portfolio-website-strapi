@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_sections_my_blog_posts_sections",
+  "info": {
+    "displayName": "My Blog Posts Section"
+  },
+  "options": {},
+  "attributes": {
+    "SectionTitle": {
+      "type": "string"
+    },
+    "SectionDescription": {
+      "type": "component",
+      "repeatable": false,
+      "component": "global.paragraph"
+    },
+    "CTA": {
+      "type": "component",
+      "repeatable": false,
+      "component": "global.links"
+    }
+  }
+}

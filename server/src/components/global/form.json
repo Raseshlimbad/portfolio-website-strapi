@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_global_forms",
+  "info": {
+    "displayName": "Form",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "Label": {
+      "type": "string"
+    },
+    "Icon_and_placeholder": {
+      "type": "component",
+      "repeatable": true,
+      "component": "global.icon"
+    },
+    "SubmitButton_Text_and_Icon": {
+      "type": "component",
+      "repeatable": false,
+      "component": "global.icon"
+    }
+  }
+}

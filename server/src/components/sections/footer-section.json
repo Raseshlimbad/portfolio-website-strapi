@@ -9,16 +9,20 @@
     "CopyrightStatement": {
       "type": "text"
     },
-    "PrivacyPolicyText": {
-      "type": "string"
-    },
-    "TermsofServiceText": {
-      "type": "string"
-    },
     "SocialLinks": {
       "type": "component",
       "repeatable": true,
       "component": "social.social-links"
+    },
+    "PrivacyPolicy": {
+      "type": "component",
+      "repeatable": false,
+      "component": "global.links"
+    },
+    "TermsofService": {
+      "type": "component",
+      "repeatable": false,
+      "component": "global.links"
     }
   }
 }

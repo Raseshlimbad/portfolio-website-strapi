@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { Toaster } from 'sonner';
+import { Toaster } from "sonner";
 import Navbar from "@/components/Header/Navbar";
 import Footer from "@/components/Footer/Footer";
+
+import ApolloProvider from "@/components/Providers/ApolloProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,11 +32,12 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Navbar />
-        {/* {children} */}
-        <main className="flex-grow">{children}</main>
-        <Footer />
-        <Toaster position="bottom-right" richColors />
+        <ApolloProvider>
+          <Navbar />
+          <main className="flex-grow">{children}</main>
+          <Footer />
+          <Toaster position="bottom-right" richColors />
+        </ApolloProvider>
       </body>
     </html>
   );

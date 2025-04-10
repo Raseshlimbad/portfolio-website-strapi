@@ -6,15 +6,10 @@
   },
   "options": {},
   "attributes": {
-    "SkillCategory": {
+    "SectionTitle": {
       "type": "string"
     },
-    "SkillDescription": {
-      "type": "component",
-      "repeatable": true,
-      "component": "global.paragraph"
-    },
-    "SkillNames": {
+    "SkillCategories": {
       "type": "component",
       "repeatable": true,
       "component": "skills.skills"
