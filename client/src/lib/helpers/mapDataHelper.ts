@@ -44,6 +44,44 @@ export const strapiImageUrl = (imageURL: string) => {
   }
 };
 
+export const formatBlogDate = (publishedAt: string) => {
+  const date = new Date(publishedAt);
+  const now = new Date();
+
+  // Format date in Indian style (DD/MM/YYYY)
+  const formattedDate = date.toLocaleDateString("en-IN", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+  });
+
+  // Calculate days difference
+  const diffInDays = Math.floor(
+    (now.getTime() - date.getTime()) / (1000 * 60 * 60 * 24)
+  );
+
+  // If more than 2 days old, return formatted date
+  if (diffInDays > 2) {
+    return { formattedDate, displayDate: formattedDate };
+  }
+
+  // Calculate time difference for recent posts
+  const diffInSeconds = Math.floor((now.getTime() - date.getTime()) / 1000);
+
+  let timeAgo;
+  if (diffInSeconds < 60) {
+    timeAgo = `${diffInSeconds} seconds ago`;
+  } else if (diffInSeconds < 3600) {
+    timeAgo = `${Math.floor(diffInSeconds / 60)} minutes ago`;
+  } else if (diffInSeconds < 86400) {
+    timeAgo = `${Math.floor(diffInSeconds / 3600)} hours ago`;
+  } else {
+    timeAgo = `${Math.floor(diffInSeconds / 86400)} days ago`;
+  }
+
+  return { formattedDate, displayDate: timeAgo };
+};
+
 // Map header data
 export const mapHeaderData = (headerData: HeaderData): MappedHeaderData => {
   return {

@@ -140,7 +140,7 @@
 
 
 
-import { BlocksRenderer, type BlocksContent,} from '@strapi/blocks-react-renderer';
+import { BlocksRenderer, type BlocksContent} from '@strapi/blocks-react-renderer';
 import React, { ReactNode } from 'react';
 
 interface BlockRendererClientProps {
@@ -212,3 +212,25 @@ const BlockRendererClient = ({ content, className = "" }: BlockRendererClientPro
 };
 
 export default BlockRendererClient;
+
+
+export const extractTextFromBlocks = (blocks: BlocksContent): string => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const extract = (block: any): string => {
+    // Handle text nodes
+    if (block.type === 'text') {
+      return block.text || '';
+    }
+
+    // Recursively handle blocks with children (like paragraph, heading, etc.)
+    if (block.children && Array.isArray(block.children)) {
+      return block.children.map(extract).join(' ');
+    }
+
+    return '';
+  };
+
+  return blocks.map(extract).join(' ');
+};
+
+

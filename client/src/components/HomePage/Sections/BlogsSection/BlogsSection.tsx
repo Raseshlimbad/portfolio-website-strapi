@@ -58,7 +58,7 @@ const BlogsSection = () => {
             {/* My Blog Posts */}
             {BlogSectionData?.sectionTitle}
           </motion.h2>
-          <motion.p
+          <motion.span
             className="mt-4 text-lg text-slate-700 max-w-2xl mx-auto"
             initial={{ y: 30, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
@@ -70,7 +70,7 @@ const BlogsSection = () => {
                 content={BlogSectionData?.sectionDescription}
               />
             )}
-          </motion.p>
+          </motion.span>
         </div>
 
         <BlogCard cardDisplayLimit={3} gridCols={3} />

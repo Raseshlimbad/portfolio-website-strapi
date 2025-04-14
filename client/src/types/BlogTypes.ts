@@ -1,3 +1,4 @@
+import { BlocksContent } from "@strapi/blocks-react-renderer";
 import { LinkData } from "./global/LinkTypes";
 
 export interface BlogData {
@@ -7,7 +8,7 @@ export interface BlogData {
     Summary: string;
     publishedAt: string;
     Category: string;
-    Content: string;
+    Content: BlocksContent;
     BlogImage: {
       Image: {
         url: string;
@@ -24,7 +25,7 @@ export interface MappedBlog {
   summary: string;
   publishedAt: string;
   category: string;
-  content: string;
+  content: BlocksContent;
   BlogImage: {
     Image: {
       url: string;

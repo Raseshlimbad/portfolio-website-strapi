@@ -52,7 +52,7 @@ const Footer = () => {
             </div>
 
             {/* Social Media Links */}
-            <div className="flex space-x-4">
+            <div className="flex space-x-4 z-20">
               <a 
                 href="https://twitter.com" 
                 target="_blank" 
@@ -85,7 +85,7 @@ const Footer = () => {
             {/* Scroll to Top Button */}
             <a 
               href="#home" 
-              className="h-10 w-10 flex items-center justify-center rounded-full bg-indigo-100 text-indigo-600 hover:bg-indigo-600 hover:text-white shadow-md transition-all duration-200"
+              className="h-10 w-10 flex items-center justify-center rounded-full bg-indigo-100 text-indigo-600 hover:bg-indigo-600 hover:text-white shadow-md transition-all duration-200 z-20"
               aria-label="Back to top"
             >
               <ArrowUp className="h-5 w-5" />
