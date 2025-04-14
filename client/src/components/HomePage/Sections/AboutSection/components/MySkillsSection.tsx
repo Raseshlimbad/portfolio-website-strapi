@@ -29,7 +29,7 @@ const MySkillsSection = () => {
       }
     }, [data]);
 
-  console.log("My Skills Data:", mySkillsSectionData?.skillCategories);
+  // console.log("My Skills Data:", mySkillsSectionData?.skillCategories);
 
 
   if (loading) return <MySkillsSectionSkeleton />;

@@ -67,6 +67,7 @@ import Image from 'next/image';
 import { strapiImageUrl } from '@/lib/helpers/mapDataHelper';
 import { cn } from '@/lib/utils';
 import { useEffect, useState } from 'react';
+import StrapiImageSkeleton from "../LoadingSkeletons/StrapiImageSkeleton";
 
 interface StrapiImageProps {
   imageUrl: string;
@@ -91,83 +92,76 @@ const StrapiImageRenderer = ({
 }: StrapiImageProps) => {
   const fullImageUrl = strapiImageUrl(imageUrl);
   const [svgContent, setSvgContent] = useState<string | null>(null);
-
-  // useEffect(() => {
-  //   if (isSvg && fullImageUrl) {
-  //     fetch(fullImageUrl)
-  //       .then((res) => res.text())
-  //       .then((text) => {
-  //         if (svgColor) {
-  //           // Replace all fill colors with the provided color
-  //           const coloredSvg = text.replace(/fill=".*?"/g, `fill="${svgColor}"`);
-  //           setSvgContent(coloredSvg);
-  //         } else {
-  //           setSvgContent(text);
-  //         }
-  //       })
-  //       .catch((err) => {
-  //         console.error('Failed to load SVG:', err);
-  //       });
-  //   }
-  // }, [fullImageUrl, svgColor, isSvg]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [imageError, setImageError] = useState(false);
 
   useEffect(() => {
+    setIsLoading(true);
     if (isSvg && fullImageUrl) {
       fetch(fullImageUrl)
         .then((res) => res.text())
         .then((text) => {
           let updatedSvg = text;
-  
-          // Remove any existing width/height attributes on the <svg> tag
           updatedSvg = updatedSvg.replace(/<svg[^>]*>/, (match) => {
             return match
-              .replace(/\s(width|height)=".*?"/g, '') // Remove width and height if present
-              .replace(
-                /^<svg/,
-                `<svg width="${width}" height="${height}"`
-              ); // Add width and height
+              .replace(/\s(width|height)=".*?"/g, '')
+              .replace(/^<svg/, `<svg width="${width}" height="${height}"`);
           });
-  
-          // Optional: Replace all fill colors
           if (svgColor) {
             updatedSvg = updatedSvg.replace(/fill=".*?"/g, `fill="${svgColor}"`);
           }
-  
           setSvgContent(updatedSvg);
+          setIsLoading(false);
         })
         .catch((err) => {
           console.error('Failed to load SVG:', err);
+          setImageError(true);
+          setIsLoading(false);
         });
+    } else {
+      // For regular images, we'll let Next.js Image component handle loading
+      setIsLoading(false);
     }
   }, [fullImageUrl, svgColor, width, height, isSvg]);
-  
 
-  if (!fullImageUrl) {
+  if (!fullImageUrl || imageError) {
     return null;
   }
 
-  // Inline SVG
+  if (isLoading) {
+    return (
+      <StrapiImageSkeleton
+        width={width}
+        height={height}
+        className={className}
+        isSvg={isSvg}
+      />
+    );
+  }
+
   if (isSvg && svgContent) {
     return (
       <div
         className={cn('inline-block', className)}
-        // style={{ width, height }}
         dangerouslySetInnerHTML={{ __html: svgContent }}
         aria-label={altText}
       />
     );
   }
 
-  // Regular image
+  // Regular image with proper error handling
   return (
-    <Image
-      src={fullImageUrl}
-      alt={altText}
-      width={width}
-      height={height}
-      className={className}
-      priority={priority}
-    />
+    <div className={cn('relative', className)} style={{ width, height }}>
+      <Image
+        src={fullImageUrl}
+        alt={altText}
+        fill
+        className="object-cover rounded-lg"
+        priority={priority}
+        onError={() => setImageError(true)}
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+      />
+    </div>
   );
 };
 

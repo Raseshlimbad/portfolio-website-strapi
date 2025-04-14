@@ -5,7 +5,7 @@ import { Toaster } from "sonner";
 import Navbar from "@/components/Header/Navbar";
 import Footer from "@/components/Footer/Footer";
 
-import ApolloProvider from "@/components/Providers/ApolloProvider";
+import ApolloProvider from "@/Providers/ApolloProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

@@ -4,7 +4,8 @@
   "info": {
     "singularName": "blog",
     "pluralName": "blogs",
-    "displayName": "Blogs"
+    "displayName": "Blogs",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -22,8 +23,10 @@
     "Category": {
       "type": "text"
     },
-    "PublishDate": {
-      "type": "datetime"
+    "Image": {
+      "type": "component",
+      "repeatable": true,
+      "component": "global.image"
     }
   }
 }

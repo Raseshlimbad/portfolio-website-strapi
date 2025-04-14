@@ -372,6 +372,7 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
 export interface ApiBlogBlog extends Struct.CollectionTypeSchema {
   collectionName: 'blogs';
   info: {
+    description: '';
     displayName: 'Blogs';
     pluralName: 'blogs';
     singularName: 'blog';
@@ -385,10 +386,10 @@ export interface ApiBlogBlog extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    Image: Schema.Attribute.Component<'global.image', true>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::blog.blog'> &
       Schema.Attribute.Private;
-    PublishDate: Schema.Attribute.DateTime;
     publishedAt: Schema.Attribute.DateTime;
     Summary: Schema.Attribute.Text;
     Title: Schema.Attribute.String;
@@ -455,7 +456,6 @@ export interface ApiProjectProject extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     Description: Schema.Attribute.Blocks;
     Image: Schema.Attribute.Component<'global.image', false>;
-    Links: Schema.Attribute.Component<'global.links', true>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -463,9 +463,8 @@ export interface ApiProjectProject extends Struct.CollectionTypeSchema {
     > &
       Schema.Attribute.Private;
     ProjectCategoryIcon: Schema.Attribute.Component<'global.icon', false>;
-    ProjectLink: Schema.Attribute.Component<'global.links', false>;
+    ProjectLinks: Schema.Attribute.Component<'global.icon', true>;
     publishedAt: Schema.Attribute.DateTime;
-    TechnologiesUsed: Schema.Attribute.Text;
     TechnologyStack: Schema.Attribute.Component<'global.text-array', true>;
     Title: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;

@@ -17,14 +17,6 @@
     "Description": {
       "type": "blocks"
     },
-    "TechnologiesUsed": {
-      "type": "text"
-    },
-    "ProjectLink": {
-      "type": "component",
-      "repeatable": false,
-      "component": "global.links"
-    },
     "Image": {
       "type": "component",
       "repeatable": false,
@@ -35,15 +27,15 @@
       "repeatable": false,
       "component": "global.icon"
     },
-    "Links": {
-      "type": "component",
-      "repeatable": true,
-      "component": "global.links"
-    },
     "TechnologyStack": {
       "type": "component",
       "repeatable": true,
       "component": "global.text-array"
+    },
+    "ProjectLinks": {
+      "type": "component",
+      "repeatable": true,
+      "component": "global.icon"
     }
   }
 }

@@ -1,5 +1,6 @@
 "use client";
 
+import BlockRendererClient from "@/components/global/BlockRendererClient";
 import StrapiImageRenderer from "@/components/global/StrapiImageRenderer";
 import {
   MappedSkillCategory,
@@ -65,16 +66,19 @@ const SkillsDisplay: React.FC<SkillsDisplayProps> = ({ skillCategories }) => {
             transition={{ duration: 0.5 }}
           >
             {/* Description with fade-out and fade-in transition on tab change */}
-            <motion.p
+            <motion.span
               className="text-gray-600 dark:text-gray-300 mb-4 max-w-md"
-              key={activeCategory.categoryDescription} // Key helps reset the animation when description changes
+              // key={activeCategory.categoryDescription} // Key helps reset the animation when description changes
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
             >
-              {activeCategory.categoryDescription}
-            </motion.p>
+              {/* {activeCategory.categoryDescription} */}
+              {activeCategory.categoryDescription && (
+                <BlockRendererClient content={activeCategory.categoryDescription} />
+              )}
+            </motion.span>
 
             {/* skills */}
             <div className="flex flex-wrap justify-center gap-2">
@@ -111,16 +115,19 @@ const SkillsDisplay: React.FC<SkillsDisplayProps> = ({ skillCategories }) => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <motion.p
+            <motion.span
               className="text-gray-600 dark:text-gray-300 mb-4 max-w-md"
-              key={activeCategory.categoryDescription}
+              // key={activeCategory.categoryDescription}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
             >
-              {activeCategory.categoryDescription}
-            </motion.p>
+              {/* {activeCategory.categoryDescription} */}
+              {activeCategory.categoryDescription && (
+                <BlockRendererClient content={activeCategory.categoryDescription} />
+              )}
+            </motion.span>
 
             <div className="flex flex-wrap justify-center gap-2">
               {activeCategory.icons.map((icon: MappedSkillIcon) => (

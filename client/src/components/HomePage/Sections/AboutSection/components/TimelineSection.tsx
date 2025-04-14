@@ -32,7 +32,7 @@ const TimelineSection = () => {
     }
   }, [data]);
 
-  console.log("Timeline Data: ", timelineData);
+  // console.log("Timeline Data: ", timelineData);
 
   const debounce = <T extends (...args: unknown[]) => void>(
     func: T,

@@ -193,11 +193,12 @@ export interface SectionsHeroSection extends Struct.ComponentSchema {
 export interface SectionsMyBlogPostsSection extends Struct.ComponentSchema {
   collectionName: 'components_sections_my_blog_posts_sections';
   info: {
+    description: '';
     displayName: 'My Blog Posts Section';
   };
   attributes: {
     CTA: Schema.Attribute.Component<'global.links', false>;
-    SectionDescription: Schema.Attribute.Component<'global.paragraph', false>;
+    SectionDescription: Schema.Attribute.Blocks;
     SectionTitle: Schema.Attribute.String;
   };
 }

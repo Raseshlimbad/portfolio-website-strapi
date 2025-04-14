@@ -1,4 +1,4 @@
-import { RichTextContent } from "../global/RichTextTypes";
+import { BlocksContent } from "@strapi/blocks-react-renderer";
 
 // Skill Icon Data
 export interface SkillIcon {
@@ -18,7 +18,7 @@ export interface SkillIcon {
 // Skill Category Data
 export interface SkillCategory {
   SkillCategoryName: string;
-  SkillCategoryDescription: RichTextContent;
+  SkillCategoryDescription: BlocksContent | null;
   Skill_Icons: SkillIcon[];
 }
 
@@ -44,7 +44,7 @@ export interface MappedSkillIcon {
 // Mapped Skill Category Data
 export interface MappedSkillCategory {
   categoryName: string;
-  categoryDescription: string; // Now receives processed string
+  categoryDescription: BlocksContent | null; 
   icons: MappedSkillIcon[];
 }
 

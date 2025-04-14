@@ -57,7 +57,7 @@ const BlogCard: React.FC<BlogCardProps> = ({ title, description, date, readTime,
         {/* Footer Section */}
         <CardFooter className="pt-0">
           <Button variant="ghost" className="p-0 hover:bg-transparent gap-2 hover:text-primary group" asChild>
-            <Link href={`/blog/${slug}`}>
+            <Link href={`/blogs/${slug}`}>
               Read more
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
             </Link>
