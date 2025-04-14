@@ -23,10 +23,15 @@
     "Category": {
       "type": "text"
     },
-    "Image": {
+    "BlogImage": {
+      "type": "component",
+      "repeatable": false,
+      "component": "global.image"
+    },
+    "Links": {
       "type": "component",
       "repeatable": true,
-      "component": "global.image"
+      "component": "global.links"
     }
   }
 }

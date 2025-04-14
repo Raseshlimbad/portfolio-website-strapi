@@ -34,9 +34,6 @@ const ProjectsPage = () => {
       />
 
       <main className="container mx-auto py-12 px-4 md:px-8 z-50">
-        <h2 className="text-4xl font-semibold text-center mb-12">
-          My Projects
-        </h2>
         <ProjectCard cardDisplayLimit={6} gridCols={3} />
       </main>
     </div>

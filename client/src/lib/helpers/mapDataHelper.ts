@@ -1,5 +1,6 @@
-import { LinkData, MappedLinkData } from "@/types/global/LinkTypes";
+import { BlogData, MappedBlog, MappedBlogData } from "@/types/BlogTypes";
 import { HeaderData, MappedHeaderData } from "@/types/HeaderTypes";
+import { BlogSectionData, MappedBlogSectionData } from "@/types/HomePage/BlogsSectionTypes";
 import {
   HeroSectionData,
   MappedHeroSectionData,
@@ -16,6 +17,11 @@ import {
   MappedTimelineData,
   TimelineData,
 } from "@/types/HomePage/TimelineTypes";
+import {
+  MappedProject,
+  MappedProjectData,
+  ProjectData,
+} from "@/types/ProjectsTypes";
 import { BlocksContent } from "@strapi/blocks-react-renderer";
 
 export const BACKEND_BASE_URL = process.env
@@ -141,112 +147,99 @@ export const mapProjectSectionData = (
       type: projectSection?.CTA?.Type ?? "Reference",
       url: projectSection?.CTA?.url ?? "#",
     },
-    // projects: projects.map(mapProjectData)
   };
 };
-
-export interface ProjectLinks {
-  IconName: string;
-  IconSVG: {
-    url: string;
-    alternativeText: string;
-  }
-  Link: LinkData;
-}
-
-export interface Project {
-  Title: string;
-  Description: BlocksContent;
-  Image: {
-    Image: {
-      url: string;
-      alternativeText: string;
-    };
-  };
-  ProjectCategoryIcon: {
-    IconName: string;
-    IconSVG: {
-      url: string;
-      alternativeText: string;
-    };
-    Link: LinkData;
-  };
-  ProjectLinks: ProjectLinks[];
-  TechnologyStack: {
-    Text: string
-  }
-}
-export interface ProjectData {
-  projects: Project[];
-}
-
-export interface MappedProject {
-  title: string;
-  description: BlocksContent;
-  image: {
-    url: string;
-    altText: string;
-  };
-  categoryIcon: {
-    name: string;
-    svgUrl: string;
-    svgAltText: string;
-    link: MappedLinkData;
-  };
-  ProjectLinks: ProjectLinks[];
-  TechnologyStack: {
-    Text: string
-  }
-  
-}
-
-export interface MappedProjectData {
-  projects: MappedProject[];
-  // project: MappedProject[];
-}
-
 
 export const mapProjectData = (data: ProjectData): MappedProjectData => {
   if (!data || !Array.isArray(data.projects)) {
     throw new Error("Project data is undefined or not an array");
   }
 
-  const mappedProjects = data.projects.map((project): MappedProject => ({
-    title: project.Title ?? "",
-    description: project.Description ?? "", // adjust this if you use rich text
-    image: {
-      url: strapiImageUrl(project.Image?.Image?.url ?? ""),
-      altText: project.Image?.Image?.alternativeText ?? "",
-    },
-    categoryIcon: {
-      name: project.ProjectCategoryIcon?.IconName ?? "",
-      svgUrl: strapiImageUrl(project.ProjectCategoryIcon?.IconSVG?.url ?? ""),
-      svgAltText: project.ProjectCategoryIcon?.IconSVG?.alternativeText ?? "",
-      link: {
-        name: project.ProjectCategoryIcon?.Link?.Name ?? "",
-        type: project.ProjectCategoryIcon?.Link?.Type ?? "Reference",
-        url: project.ProjectCategoryIcon?.Link?.url ?? "#",
+  const mappedProjects = data.projects.map(
+    (project): MappedProject => ({
+      title: project.Title ?? "",
+      description: project.Description ?? "", // adjust this if you use rich text
+      image: {
+        url: strapiImageUrl(project.Image?.Image?.url ?? ""),
+        altText: project.Image?.Image?.alternativeText ?? "",
       },
-    },
-    ProjectLinks: (project.ProjectLinks ?? []).map((link) => ({
-      IconName: link?.IconName?? "",
-      IconSVG: {
-        url: link?.IconSVG?.url?? "",
-        alternativeText:  link?.IconSVG?.alternativeText?? "",
+      categoryIcon: {
+        name: project.ProjectCategoryIcon?.IconName ?? "",
+        svgUrl: strapiImageUrl(project.ProjectCategoryIcon?.IconSVG?.url ?? ""),
+        svgAltText: project.ProjectCategoryIcon?.IconSVG?.alternativeText ?? "",
+        link: {
+          name: project.ProjectCategoryIcon?.Link?.Name ?? "",
+          type: project.ProjectCategoryIcon?.Link?.Type ?? "Reference",
+          url: project.ProjectCategoryIcon?.Link?.url ?? "#",
+        },
       },
-      Link:{
-        Name: link?.Link.Name ?? "",
-        Type: link?.Link.Type ?? "Reference",
-        url: link?.Link.url ?? "#",
-      }
-
-    })),
-    TechnologyStack: {
-      Text: project.TechnologyStack?.Text ?? "",
-    },
-  }));
+      ProjectLinks: (project.ProjectLinks ?? []).map((link) => ({
+        IconName: link?.IconName ?? "",
+        IconSVG: {
+          url: link?.IconSVG?.url ?? "",
+          alternativeText: link?.IconSVG?.alternativeText ?? "",
+        },
+        Link: {
+          Name: link?.Link.Name ?? "",
+          Type: link?.Link.Type ?? "Reference",
+          url: link?.Link.url ?? "#",
+        },
+      })),
+      TechnologyStack: {
+        Text: project.TechnologyStack?.Text ?? "",
+      },
+    })
+  );
 
   return {
     projects: mappedProjects,
+  };
+};
+
+export const mapBlogSectionData = (
+  projectSection: BlogSectionData
+): MappedBlogSectionData => {
+  return {
+    sectionTitle: projectSection?.SectionTitle ?? "",
+    sectionDescription: projectSection?.SectionDescription ?? null,
+    cta: {
+      name: projectSection?.CTA?.Name ?? "View All Projects",
+      type: projectSection?.CTA?.Type ?? "Reference",
+      url: projectSection?.CTA?.url ?? "#",
+    },
+  };
+};
+
+
+
+export const mapBlogData = (data: BlogData): MappedBlogData => {
+  if (!data || !Array.isArray(data.blogs)) {
+    throw new Error("Blog data is undefined or not an array");
+  }
+
+  const mappedBlogs = data.blogs.map(
+    (blog): MappedBlog => ({
+      slug: blog.documentId?? "",
+      title: blog.Title ?? "",
+      summary: blog.Summary ?? "",
+      publishedAt: blog.publishedAt ?? "",
+      category: blog.Category ?? "",
+      content: blog.Content ?? "",
+      BlogImage: {
+        Image: {
+          url: strapiImageUrl(blog.BlogImage?.Image?.url ?? ""),
+        },
+        altText: blog.BlogImage?.altText ?? "",
+      },
+      Links: blog.Links.map((link) => ({
+        url: link.url?? "",
+        Name: link.Name?? "",
+        Type: link.Type?? "",
+      })),
+    })
+  );
+
+  return {
+    blogs: mappedBlogs,
   };
 };

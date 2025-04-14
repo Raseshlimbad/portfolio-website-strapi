@@ -16,10 +16,8 @@ import ProjectCard from "../../../global/ProjectCard";
 const Projects = () => {
   const [projectSectionData, setProjectSectionData] = useState<MappedProjectSectionData>();
   const { loading: sectionLoading, error: sectionError, data: sectionData } = useQuery(GET_PROJECT_SECTION_DATA);
-  // const { loading: projectsLoading, error: projectsError, data: projectsData } = useQuery(GET_PROJECTS);
 
   useEffect(() => {
-    // if (sectionData?.homePage?.Sections && projectsData?.projects) {
     if (sectionData?.homePage?.Sections) {
       const projectSection = sectionData.homePage.Sections.find(
         (section: { __typename: string }) => 
@@ -27,24 +25,19 @@ const Projects = () => {
       );
 
       if (projectSection) {
-        // const mappedData = mapProjectSectionData(projectSection, projectsData.projects);
         const mappedData = mapProjectSectionData(projectSection);
         setProjectSectionData(mappedData);
       }
     }
-  // }, [sectionData, projectsData]);
   }, [sectionData]);
 
-  console.log("projectSectionData:", projectSectionData)
 
   if (sectionLoading) return <ProjectsSectionLoadingSkeleton />;
-  // if (sectionLoading || projectsLoading) return <ProjectsSectionLoadingSkeleton />;
   if (sectionError) return <ErrorDisplay message={sectionError.message} />;
-  // if (projectsError) return <ErrorDisplay message={projectsError.message} />;
 
   return (
     <section id="projects" className="pt-20 pb-32 px-4 relative bg-secondary/50">
-      <div className="container mx-auto max-w-5xl">
+      <div className="container mx-auto ">
         <div className="text-center mb-16">
           <AnimatedText
             text={
@@ -71,7 +64,7 @@ const Projects = () => {
           <ProjectCard 
             cardDisplayLimit={4}
             index={0}
-            gridCols={2}
+            gridCols={3}
           />
         </div>
 

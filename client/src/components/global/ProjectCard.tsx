@@ -1,13 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import AnimatedText from "@/components/global/AnimatedText";
 import { GET_PROJECTS } from "@/graphql/Projects.query";
-import { MappedProjectData, mapProjectData } from "@/lib/helpers/mapDataHelper";
+import { mapProjectData } from "@/lib/helpers/mapDataHelper";
 import { useQuery } from "@apollo/client";
 import React, { useEffect, useState } from "react";
 import ProjectCardLoadingSkeleton from "../LoadingSkeletons/ProjectCardLoadingSkeleton";
 import BlockRendererClient from "./BlockRendererClient";
 import ErrorDisplay from "./ErrorDisplay";
 import StrapiImageRenderer from "./StrapiImageRenderer";
+import { MappedProjectData } from "@/types/ProjectsTypes";
 
 interface ProjectCardProps {
   index?: number;
@@ -28,22 +29,22 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
   const [projects, setProjects] = useState<MappedProjectData>();
 
   // console.log("Raw Projects Data:", projectsData?.projects[0].Title);
-  console.log(
-    "Raw Projects Data:",
-    projectsData?.projects.map((project: any) => project?.Title)
-  );
+  // console.log(
+  //   "Raw Projects Data:",
+  //   projectsData?.projects.map((project: any) => project?.Title)
+  // );
 
   useEffect(() => {
     if (projectsData) {
       const mappedData = mapProjectData(projectsData);
       setProjects(mappedData);
-      console.log("Raw Projects Data inside useEffect:", projectsData.projects);
-      console.log("Mapped Project Data:", mappedData);
+      // console.log("Raw Projects Data inside useEffect:", projectsData.projects);
+      // console.log("Mapped Project Data:", mappedData);
     }
   }, [projectsData]);
 
-  console.log("Project Data:", projects);
-  console.log("Project Data:", projects?.projects.map((project: any) => project?.image?.url));
+  // console.log("Project Data:", projects);
+  // console.log("Project Data:", projects?.projects.map((project: any) => project?.image?.url));
 
   if (
     cardDisplayLimit &&

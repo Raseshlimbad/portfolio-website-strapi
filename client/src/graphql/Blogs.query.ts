@@ -1,19 +1,42 @@
 import { gql } from "@apollo/client";
 
-export const GET_PROJECTS = gql`
+export const GET_BLOGS = gql`
   query BlogsData {
     blogs {
+      documentId
       Title
       Summary
       publishedAt
       Category
       Content
-      Image {
+      BlogImage {
         Image {
           url
-          alternativeText
         }
+        altText
+      }
+      Links {
+        url
+        Name
+        Type
       }
     }
   }
 `;
+// export const GET_BLOGS = gql`
+//   query BlogsData {
+//     blogs {
+//       Title
+//       Summary
+//       publishedAt
+//       Category
+//       Content
+//       BlogImage {
+//         Image {
+//           url
+//         }
+//         altText
+//       }
+//     }
+//   }
+// `;
