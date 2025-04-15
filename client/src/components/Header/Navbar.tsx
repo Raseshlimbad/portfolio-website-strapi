@@ -6,10 +6,11 @@ import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useQuery } from "@apollo/client";
-import { GET_HEADER_DATA } from "@/graphql/header/header.query";
+import { GET_HEADER_DATA } from "@/graphql/settings/header.query";
 import { mapHeaderData } from "@/lib/helpers/mapDataHelper";
 import { MappedHeaderData } from "@/types/HeaderTypes";
 import HeaderLoadingSkeleton from "../LoadingSkeletons/HeaderLoadingSkeleton";
+import ErrorDisplay from "../global/ErrorDisplay";
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -20,11 +21,13 @@ const Navbar = () => {
 
   const { loading, error, data } = useQuery(GET_HEADER_DATA);
 
+  // console.log("data:", data?.setting?.Settings);
+
     // Formatted Data
     useEffect(() => {
-      if (data?.homePage?.Sections) {
-        const headerSection = data.homePage.Sections.find(
-          (section: { __typename: string }) => section.__typename === "ComponentSectionsHeaderSection"
+      if (data?.setting?.Settings) {
+        const headerSection = data?.setting?.Settings.find(
+          (section: { __typename: string }) => section.__typename === "ComponentComponentHeader"
         );
   
         if (headerSection) {
@@ -64,7 +67,7 @@ const Navbar = () => {
   }, []);
 
   if (loading) return <HeaderLoadingSkeleton />;
-  if (error) return <p>Error: {error.message}</p>;
+  if (error) return <ErrorDisplay message={"Error Fetching Header"} />;
 
   return (
     <header

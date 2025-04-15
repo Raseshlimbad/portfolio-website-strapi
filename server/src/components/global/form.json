@@ -6,10 +6,7 @@
   },
   "options": {},
   "attributes": {
-    "Label": {
-      "type": "string"
-    },
-    "Icon_and_placeholder": {
+    "Icon_label_and_placeholder": {
       "type": "component",
       "repeatable": true,
       "component": "global.icon"

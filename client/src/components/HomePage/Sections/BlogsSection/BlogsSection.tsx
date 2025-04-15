@@ -20,7 +20,7 @@ const BlogsSection = () => {
     error: sectionError,
     data: sectionData,
   } = useQuery(GET_BLOG_SECTION_DATA);
-  console.log("sectionData:", sectionData?.homePage?.Sections);
+  // console.log("sectionData:", sectionData?.homePage?.Sections);
   useEffect(() => {
     if (sectionData?.homePage?.Sections) {
       const BlogSection = sectionData.homePage.Sections.find(
@@ -35,7 +35,7 @@ const BlogsSection = () => {
     }
   }, [sectionData]);
 
-  console.log("projectSectionData:", BlogSectionData);
+  // console.log("projectSectionData:", BlogSectionData);
 
   if (sectionLoading) return <BlogSectionLoadingSkeleton />;
   if (sectionError) return <ErrorDisplay message={sectionError.message} />;

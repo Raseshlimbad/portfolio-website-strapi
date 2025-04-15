@@ -1,6 +1,8 @@
 import { BlogData, MappedBlog, MappedBlogData } from "@/types/BlogTypes";
+import { FooterData, MappedFooterData } from "@/types/FooterTypes";
 import { HeaderData, MappedHeaderData } from "@/types/HeaderTypes";
 import { BlogSectionData, MappedBlogSectionData } from "@/types/HomePage/BlogsSectionTypes";
+import { ContactSectionData, MappedContactSectionData } from "@/types/HomePage/ContactSectionTypes";
 import {
   HeroSectionData,
   MappedHeroSectionData,
@@ -31,15 +33,12 @@ export const BACKEND_BASE_URL = process.env
 export const strapiImageUrl = (imageURL: string) => {
   if (!imageURL) return "";
   try {
-    // If it's already a valid URL, return it
     new URL(imageURL);
     return imageURL;
   } catch {
-    // If it's a relative path, join it with the backend URL
     if (imageURL.startsWith("/")) {
       return new URL(imageURL, BACKEND_BASE_URL).toString();
     }
-    // If it's neither, try to construct a URL with the backend
     return new URL(imageURL, BACKEND_BASE_URL).toString();
   }
 };
@@ -99,6 +98,55 @@ export const mapHeaderData = (headerData: HeaderData): MappedHeaderData => {
   };
 };
 
+
+
+
+
+// Map footer data
+export const mapFooterData = (footerData: FooterData): MappedFooterData => {
+  return {
+    copyrightStatement: footerData?.CopyrightStatement ?? "",
+    termsOfService: {
+      Name: footerData.TermsofService?.Name ?? "",
+      Type: footerData.TermsofService?.Type ?? "",
+      url: footerData.TermsofService?.url ?? "#",
+    },
+    privacyPolicy: {
+      Name: footerData.PrivacyPolicy?.Name ?? "",
+      Type: footerData.PrivacyPolicy?.Type ?? "",
+      url: footerData.PrivacyPolicy?.url ?? "#",
+    },
+    socialLinks: footerData.SocialLinks?.map((link) => ({
+      iconName: link.IconName ?? "",
+      iconSvg: {
+        url: strapiImageUrl(link.IconSVG?.url ?? ""),
+        alternativeText: link.IconSVG?.alternativeText ?? "",
+      },
+      relatedText: link.ReletedText ?? "",
+      link: {
+        Name: link.Link?.Name ?? "",
+        Type: link.Link?.Type ?? "",
+        url: link.Link?.url ?? "#",
+      },
+    })) || [],
+    backToTopButton: {
+      iconName: footerData.BackToTopButton?.IconName ?? "",
+      iconSvg: {
+        url: strapiImageUrl(footerData.BackToTopButton?.IconSVG?.url ?? ""),
+        alternativeText: footerData.BackToTopButton?.IconSVG?.alternativeText ?? "",
+      },
+      relatedText: footerData.BackToTopButton?.ReletedText ?? "",
+      link: {
+        Name: footerData.BackToTopButton?.Link?.Name ?? "",
+        Type: footerData.BackToTopButton?.Link?.Type ?? "",
+        url: footerData.BackToTopButton?.Link?.url ?? "#",
+      },
+    },
+  };
+};
+
+
+
 // Map hero section data
 export const mapHeroSectionData = (
   heroSectionData: HeroSectionData
@@ -147,6 +195,7 @@ export const mapTimelineData = (
   };
 };
 
+// Map my skills section data
 export const mapMySkillsSectionData = (
   mySkillsSection: MySkillsSectionData
 ): MappedMySkillsSection => {
@@ -173,6 +222,7 @@ export const mapMySkillsSectionData = (
   };
 };
 
+// Map project section data
 export const mapProjectSectionData = (
   projectSection: ProjectSectionData
   // projects: ProjectData[] = []
@@ -188,6 +238,7 @@ export const mapProjectSectionData = (
   };
 };
 
+// Map project data
 export const mapProjectData = (data: ProjectData): MappedProjectData => {
   if (!data || !Array.isArray(data.projects)) {
     throw new Error("Project data is undefined or not an array");
@@ -234,6 +285,7 @@ export const mapProjectData = (data: ProjectData): MappedProjectData => {
   };
 };
 
+// Map blog section data
 export const mapBlogSectionData = (
   projectSection: BlogSectionData
 ): MappedBlogSectionData => {
@@ -248,8 +300,7 @@ export const mapBlogSectionData = (
   };
 };
 
-
-
+// Map blog data
 export const mapBlogData = (data: BlogData): MappedBlogData => {
   if (!data || !Array.isArray(data.blogs)) {
     throw new Error("Blog data is undefined or not an array");
@@ -279,5 +330,68 @@ export const mapBlogData = (data: BlogData): MappedBlogData => {
 
   return {
     blogs: mappedBlogs,
+  };
+};
+
+
+
+// Add this mapper function
+export const mapContactSectionData = (contactSection: ContactSectionData): MappedContactSectionData => {
+  return {
+    leftSection: {
+      title: contactSection?.Contact_Information_LeftSection?.Title ?? "",
+      subTitle: contactSection?.Contact_Information_LeftSection?.subTitle ?? "",
+      contactDetails: contactSection?.Contact_Information_LeftSection?.ContactDtails?.map((detail) => ({
+        iconName: detail?.IconName ?? "",
+        iconSvg: {
+          url: strapiImageUrl(detail?.IconSVG?.url ?? ""),
+          alternativeText: detail?.IconSVG?.alternativeText ?? "",
+        },
+        Text: detail?.ReletedText ?? "",
+        link: {
+          url: detail?.Link?.url ?? "#",
+          Name: detail?.Link?.Name ?? "",
+          Type: detail?.Link?.Type ?? "",
+        },
+      })) || [],
+    },
+    middleSection: {
+      title: contactSection?.Send_Message_MiddleSection?.Title ?? "",
+      contactForm: {
+        formFields: contactSection?.Send_Message_MiddleSection?.ContactForm?.Icon_label_and_placeholder?.map((field) => ({
+          label: field?.IconName ?? "",
+          iconSvg: {
+            url: strapiImageUrl(field?.IconSVG?.url ?? ""),
+            alternativeText: field?.IconSVG?.alternativeText ?? "",
+          },
+          placeholder: field?.ReletedText ?? "",
+          link: {
+            Name: field?.Link?.Name ?? "",
+            Type: field?.Link?.Type ?? "",
+            url: field?.Link?.url ?? "",
+          },
+        })) || [],
+        submitButton: {
+          ButtonName: contactSection?.Send_Message_MiddleSection?.ContactForm?.SubmitButton_Text_and_Icon?.IconName ?? "",
+          iconSvg: {
+            url: strapiImageUrl(contactSection?.Send_Message_MiddleSection?.ContactForm?.SubmitButton_Text_and_Icon?.IconSVG?.url ?? ""),
+            alternativeText: contactSection?.Send_Message_MiddleSection?.ContactForm?.SubmitButton_Text_and_Icon?.IconSVG?.alternativeText ?? "",
+          },
+          relatedText: contactSection?.Send_Message_MiddleSection?.ContactForm?.SubmitButton_Text_and_Icon?.ReletedText ?? "",
+          link: {
+            Name: contactSection?.Send_Message_MiddleSection?.ContactForm?.SubmitButton_Text_and_Icon?.Link?.Name ?? "",
+            Type: contactSection?.Send_Message_MiddleSection?.ContactForm?.SubmitButton_Text_and_Icon?.Link?.Type ?? "",
+            url: contactSection?.Send_Message_MiddleSection?.ContactForm?.SubmitButton_Text_and_Icon?.Link?.url ?? "",
+          },
+        },
+      },
+    },
+    rightSection: {
+      image: {
+        url: strapiImageUrl(contactSection?.Contact_Image_RightSection_Image?.Image?.url ?? ""),
+        alternativeText: contactSection?.Contact_Image_RightSection_Image?.Image?.alternativeText ?? "",
+      },
+      altText: contactSection?.Contact_Image_RightSection_Image?.altText ?? "",
+    },
   };
 };

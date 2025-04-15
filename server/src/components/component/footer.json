@@ -1,18 +1,13 @@
 {
-  "collectionName": "components_sections_footer_sections",
+  "collectionName": "components_component_footers",
   "info": {
-    "displayName": "Footer Section",
+    "displayName": "Footer",
     "description": ""
   },
   "options": {},
   "attributes": {
     "CopyrightStatement": {
-      "type": "text"
-    },
-    "SocialLinks": {
-      "type": "component",
-      "repeatable": true,
-      "component": "social.social-links"
+      "type": "string"
     },
     "PrivacyPolicy": {
       "type": "component",
@@ -23,6 +18,16 @@
       "type": "component",
       "repeatable": false,
       "component": "global.links"
+    },
+    "BackToTopButton": {
+      "type": "component",
+      "repeatable": false,
+      "component": "global.icon"
+    },
+    "SocialLinks": {
+      "type": "component",
+      "repeatable": true,
+      "component": "global.icon"
     }
   }
 }

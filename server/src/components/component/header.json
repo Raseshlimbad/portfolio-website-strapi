@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_component_headers",
+  "info": {
+    "displayName": "Header"
+  },
+  "options": {},
+  "attributes": {
+    "LOGO": {
+      "type": "component",
+      "repeatable": false,
+      "component": "global.image"
+    },
+    "NavItems": {
+      "type": "component",
+      "repeatable": true,
+      "component": "global.links"
+    }
+  }
+}

@@ -14,26 +14,30 @@ const LinkRenderer = ({ type, url, children, className = "" }: LinkRendererProps
     case "Anchor":
       // Anchor links (hash links) for same-page navigation
       return (
-        <a href={url} className={className} onClick={(e) => {
+        <Link
+        href={`#${url}`}
+        className={className}
+        onClick={(e) => {
           e.preventDefault();
-          const element = document.querySelector(url);
+          const element = document.querySelector(`#${url}`);
           element?.scrollIntoView({ behavior: "smooth" });
-        }}>
-          {children}
-        </a>
+        }}
+      >
+        {children}
+      </Link>
       );
 
     case "External":
       // External links with security attributes
       return (
-        <a
+        <Link
           href={url}
           target="_blank"
           rel="noopener noreferrer"
           className={className}
         >
           {children}
-        </a>
+        </Link>
       );
 
     default:

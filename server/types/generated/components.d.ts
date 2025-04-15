@@ -1,5 +1,31 @@
 import type { Schema, Struct } from '@strapi/strapi';
 
+export interface ComponentFooter extends Struct.ComponentSchema {
+  collectionName: 'components_component_footers';
+  info: {
+    description: '';
+    displayName: 'Footer';
+  };
+  attributes: {
+    BackToTopButton: Schema.Attribute.Component<'global.icon', false>;
+    CopyrightStatement: Schema.Attribute.String;
+    PrivacyPolicy: Schema.Attribute.Component<'global.links', false>;
+    SocialLinks: Schema.Attribute.Component<'global.icon', true>;
+    TermsofService: Schema.Attribute.Component<'global.links', false>;
+  };
+}
+
+export interface ComponentHeader extends Struct.ComponentSchema {
+  collectionName: 'components_component_headers';
+  info: {
+    displayName: 'Header';
+  };
+  attributes: {
+    LOGO: Schema.Attribute.Component<'global.image', false>;
+    NavItems: Schema.Attribute.Component<'global.links', true>;
+  };
+}
+
 export interface ComponentTimeline extends Struct.ComponentSchema {
   collectionName: 'components_component_timelines';
   info: {
@@ -23,8 +49,7 @@ export interface GlobalForm extends Struct.ComponentSchema {
     displayName: 'Form';
   };
   attributes: {
-    Icon_and_placeholder: Schema.Attribute.Component<'global.icon', true>;
-    Label: Schema.Attribute.String;
+    Icon_label_and_placeholder: Schema.Attribute.Component<'global.icon', true>;
     SubmitButton_Text_and_Icon: Schema.Attribute.Component<
       'global.icon',
       false
@@ -152,20 +177,6 @@ export interface SectionsContactSection extends Struct.ComponentSchema {
   };
 }
 
-export interface SectionsFooterSection extends Struct.ComponentSchema {
-  collectionName: 'components_sections_footer_sections';
-  info: {
-    description: '';
-    displayName: 'Footer Section';
-  };
-  attributes: {
-    CopyrightStatement: Schema.Attribute.Text;
-    PrivacyPolicy: Schema.Attribute.Component<'global.links', false>;
-    SocialLinks: Schema.Attribute.Component<'social.social-links', true>;
-    TermsofService: Schema.Attribute.Component<'global.links', false>;
-  };
-}
-
 export interface SectionsHeaderSection extends Struct.ComponentSchema {
   collectionName: 'components_sections_header_sections';
   info: {
@@ -282,6 +293,8 @@ export interface SubSectionsSendMeAMessage extends Struct.ComponentSchema {
 declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
+      'component.footer': ComponentFooter;
+      'component.header': ComponentHeader;
       'component.timeline': ComponentTimeline;
       'global.form': GlobalForm;
       'global.icon': GlobalIcon;
@@ -293,7 +306,6 @@ declare module '@strapi/strapi' {
       'projects.project-details': ProjectsProjectDetails;
       'sections.about-me-section': SectionsAboutMeSection;
       'sections.contact-section': SectionsContactSection;
-      'sections.footer-section': SectionsFooterSection;
       'sections.header-section': SectionsHeaderSection;
       'sections.hero-section': SectionsHeroSection;
       'sections.my-blog-posts-section': SectionsMyBlogPostsSection;

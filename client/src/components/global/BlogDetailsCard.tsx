@@ -81,52 +81,33 @@
 
  
 
-import { Button } from "@/components/ui/button";
-import { Card, CardDescription, CardTitle } from "@/components/ui/card";
-import { GET_BLOGS } from "@/graphql/Blogs.query";
-import { formatBlogDate, mapBlogData } from "@/lib/helpers/mapDataHelper";
-import { cn } from "@/lib/utils";
-import { MappedBlogData } from "@/types/BlogTypes";
-import { useQuery } from "@apollo/client";
-import { ArrowRight, Calendar, Clock } from "lucide-react";
-import Link from "next/link";
-import React, { useEffect, useState } from "react";
-import ErrorDisplay from "./ErrorDisplay";
-import StrapiImageRenderer from "./StrapiImageRenderer";
 import BlockRendererClient, {
   extractTextFromBlocks,
 } from "@/components/global/BlockRendererClient";
+import { Button } from "@/components/ui/button";
+import { Card, CardDescription, CardTitle } from "@/components/ui/card";
+import { formatBlogDate } from "@/lib/helpers/mapDataHelper";
+import { cn } from "@/lib/utils";
+import { ArrowRight, Calendar, Clock } from "lucide-react";
+import Link from "next/link";
+import React from "react";
 import readingTime from "reading-time";
-import { LinkData } from "@/types/global/LinkTypes";
-import BlogDetailCardLoadingSkeleton from "../LoadingSkeletons/BlogDetailCardLoadingSkeleton";
+import StrapiImageRenderer from "./StrapiImageRenderer";
 
 interface BlogDetailsCardProps {
   index?: number;
   cardDisplayLimit?: number;
   gridCols?: 1 | 2 | 3 | 4;
   slug: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  blog: any; // Replace with your blog type
 }
 
 const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
   index,
   cardDisplayLimit,
+  blog,
 }) => {
-  const {
-    loading: blogsLoading,
-    error: blogsError,
-    data: blogsData,
-  } = useQuery(GET_BLOGS);
-  const [blogs, setBlogs] = useState<MappedBlogData>();
-
-  useEffect(() => {
-    if (blogsData) {
-      const mappedData = mapBlogData(blogsData);
-      setBlogs(mappedData);
-    }
-  }, [blogsData]);
-
-  console.log("Blogs:", blogs);
-
   if (
     cardDisplayLimit &&
     typeof index === "number" &&
@@ -135,76 +116,64 @@ const BlogDetailsCard: React.FC<BlogDetailsCardProps> = ({
     return null;
   }
 
-  if (blogsLoading) return <BlogDetailCardLoadingSkeleton />;
-  if (blogsLoading) return <p>Loading...</p>;
-  if (blogsError) return <ErrorDisplay message={blogsError.message} />;
+  const plainText = extractTextFromBlocks(blog.content);
+  const { text: readingTimeText } = readingTime(plainText);
 
   return (
     <div className="space-y-4 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      {blogs?.blogs &&
-        blogs.blogs.map((blog) => {
-          const plainText = extractTextFromBlocks(blog.content);
-          const { text: readingTimeText } = readingTime(plainText);
-          return (
-            <Card
-              key={blog.title}
-              className={cn(
-                "overflow-hidden border border-border/30 transition-all duration-300 hover:shadow-lg hover:shadow-primary/5 hover:border-primary/20"
-              )}
-            >
-              <div className="grid grid-cols-1 lg:grid-cols-3 h-full">
-                {/* Image Section */}
-                <div className="relative h-48 sm:h-64 lg:h-full">
-                  <StrapiImageRenderer
-                    imageUrl={blog.BlogImage?.Image.url}
-                    className="object-cover transition-transform duration-500 hover:scale-105 w-full h-full"
-                    altText={blog?.BlogImage?.altText}
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-r from-background/80 to-transparent opacity-70"></div>
-                </div>
+      <Card
+        className={cn(
+          "overflow-hidden border border-border/30 transition-all duration-300 hover:shadow-lg hover:shadow-primary/5 hover:border-primary/20"
+        )}
+      >
+        <div className="grid grid-cols-1 lg:grid-cols-3 h-full">
+          {/* Image Section */}
+          <div className="relative h-48 sm:h-64 lg:h-full">
+            <StrapiImageRenderer
+              imageUrl={blog.BlogImage?.Image.url}
+              className="object-cover transition-transform duration-500 hover:scale-105 w-full h-full"
+              altText={blog?.BlogImage?.altText}
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-background/80 to-transparent opacity-70"></div>
+          </div>
 
-                {/* Content Section */}
-                <div className="lg:col-span-2 flex flex-col p-4 sm:p-6 lg:p-8">
-                  <div className="flex flex-wrap gap-4 text-sm text-muted-foreground mb-4">
-                    <div className="flex items-center">
-                      <Calendar className="mr-1 h-3 w-3" />
-                      <span>{formatBlogDate(blog.publishedAt).displayDate}</span>
-                    </div>
-                    <div className="flex items-center">
-                      <Clock className="mr-1 h-3 w-3" />
-                      <span>{readingTimeText}</span>
-                    </div>
-                  </div>
-
-                  <CardTitle className="text-xl sm:text-2xl lg:text-3xl mb-2 sm:mb-4">
-                    {blog?.title}
-                  </CardTitle>
-                  <CardDescription className="flex-grow mb-4 line-clamp-2 sm:line-clamp-3">
-                    {blog.content && (
-                      <BlockRendererClient content={blog.content} />
-                    )}
-                  </CardDescription>
-
-                  <div className="mt-4 flex flex-wrap gap-4">
-                    {blog?.Links?.map((link: LinkData) => (
-                      <Button
-                        variant="ghost"
-                        className="p-0 hover:bg-transparent hover:text-indigo-600 group flex items-center gap-2"
-                        asChild
-                        key={link.Name}
-                      >
-                        <Link href={`/blogs/${blog.slug}`}>
-                          Read more
-                          <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                        </Link>
-                      </Button>
-                    ))}
-                  </div>
-                </div>
+          {/* Content Section */}
+          <div className="lg:col-span-2 flex flex-col p-4 sm:p-6 lg:p-8">
+            <div className="flex flex-wrap gap-4 text-sm text-muted-foreground mb-4">
+              <div className="flex items-center">
+                <Calendar className="mr-1 h-3 w-3" />
+                <span>{formatBlogDate(blog.publishedAt).displayDate}</span>
               </div>
-            </Card>
-          );
-        })}
+              <div className="flex items-center">
+                <Clock className="mr-1 h-3 w-3" />
+                <span>{readingTimeText}</span>
+              </div>
+            </div>
+
+            <CardTitle className="text-xl sm:text-2xl lg:text-3xl mb-2 sm:mb-4">
+              {blog?.title}
+            </CardTitle>
+            <CardDescription className="flex-grow mb-4 line-clamp-2 sm:line-clamp-3">
+              {blog.content && (
+                <BlockRendererClient content={blog.content} />
+              )}
+            </CardDescription>
+
+            <div className="mt-4 flex flex-wrap gap-4">
+              <Button
+                variant="ghost"
+                className="p-0 hover:bg-transparent hover:text-indigo-600 group flex items-center gap-2"
+                asChild
+              >
+                <Link href={`/blogs/${blog.slug}`}>
+                  Read more
+                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </Link>
+              </Button>
+            </div>
+          </div>
+        </div>
+      </Card>
     </div>
   );
 };

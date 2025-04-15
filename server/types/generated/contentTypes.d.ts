@@ -424,14 +424,12 @@ export interface ApiHomePageHomePage extends Struct.SingleTypeSchema {
     publishedAt: Schema.Attribute.DateTime;
     Sections: Schema.Attribute.DynamicZone<
       [
-        'sections.header-section',
         'sections.hero-section',
         'sections.about-me-section',
         'sections.my-skills-section',
         'sections.my-projects-section',
         'sections.my-blog-posts-section',
         'sections.contact-section',
-        'sections.footer-section',
       ]
     >;
     updatedAt: Schema.Attribute.DateTime;
@@ -477,6 +475,7 @@ export interface ApiProjectProject extends Struct.CollectionTypeSchema {
 export interface ApiSettingSetting extends Struct.SingleTypeSchema {
   collectionName: 'settings';
   info: {
+    description: '';
     displayName: 'Settings';
     pluralName: 'settings';
     singularName: 'setting';
@@ -496,7 +495,7 @@ export interface ApiSettingSetting extends Struct.SingleTypeSchema {
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
     Settings: Schema.Attribute.DynamicZone<
-      ['sections.header-section', 'sections.footer-section']
+      ['component.header', 'component.footer']
     >;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &

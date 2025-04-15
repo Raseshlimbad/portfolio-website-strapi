@@ -24,3 +24,27 @@ export const GET_BLOGS = gql`
   }
 `;
 
+export const GET_BLOG_BY_ID = gql`
+  query GetBlogById($documentId: ID!) {
+    blog(documentId: $documentId) {
+      documentId
+      Title
+      Summary
+      publishedAt
+      Category
+      Content
+      BlogImage {
+        Image {
+          url
+        }
+        altText
+      }
+      Links {
+        url
+        Name
+        Type
+      }
+    }
+  }
+`;
+
